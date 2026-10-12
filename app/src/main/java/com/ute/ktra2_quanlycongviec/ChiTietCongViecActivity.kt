@@ -44,9 +44,17 @@ class ChiTietCongViecActivity : AppCompatActivity() {
         txtTenCongViecChiTiet.text = tenHienTai
         txtMoTaCongViecChiTiet.text = moTaHienTai
 
-        // Dang ky Activity Result API
+        // Dang ky Activity Result API va nhan ket qua tra ve
         chinhSuaLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            // Callback se xu ly o commit tiep theo
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+                val tenMoi = data?.getStringExtra("EXTRA_TEN_CONG_VIEC")
+                val moTaMoi = data?.getStringExtra("EXTRA_MO_TA")
+
+                if (tenMoi != null && moTaMoi != null) {
+                    capNhatThongTin(tenMoi, moTaMoi)
+                }
+            }
         }
 
         btnChinhSua.setOnClickListener {
@@ -60,5 +68,12 @@ class ChiTietCongViecActivity : AppCompatActivity() {
             putExtra("EXTRA_MO_TA", moTaHienTai)
         }
         chinhSuaLauncher.launch(intent)
+    }
+
+    private fun capNhatThongTin(tenMoi: String, moTaMoi: String) {
+        tenHienTai = tenMoi
+        moTaHienTai = moTaMoi
+        txtTenCongViecChiTiet.text = tenHienTai
+        txtMoTaCongViecChiTiet.text = moTaHienTai
     }
 }
