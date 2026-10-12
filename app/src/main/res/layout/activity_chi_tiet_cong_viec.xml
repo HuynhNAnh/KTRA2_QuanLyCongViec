@@ -60,15 +60,11 @@
                     android:id="@+id/txtTrangThaiChiTiet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="12dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="12dp"
-                    android:paddingBottom="4dp"
                     android:text="Chưa hoàn thành"
                     android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="#B45309"
-                    android:background="#FEF3C7" />
+                    android:background="@drawable/bg_trang_thai" />
             </LinearLayout>
 
             <TextView

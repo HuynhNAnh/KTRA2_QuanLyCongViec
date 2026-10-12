@@ -1,6 +1,7 @@
 package com.ute.ktra2_quanlycongviec
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -107,10 +108,10 @@ class ChiTietCongViecActivity : AppCompatActivity() {
         txtTrangThaiChiTiet.text = congViecHienTai.trangThai
         if (congViecHienTai.trangThai == "Đã hoàn thành") {
             txtTrangThaiChiTiet.setTextColor(Color.parseColor("#15803D"))
-            txtTrangThaiChiTiet.setBackgroundColor(Color.parseColor("#DCFCE7"))
+            txtTrangThaiChiTiet.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#DCFCE7"))
         } else {
             txtTrangThaiChiTiet.setTextColor(Color.parseColor("#B45309"))
-            txtTrangThaiChiTiet.setBackgroundColor(Color.parseColor("#FEF3C7"))
+            txtTrangThaiChiTiet.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FEF3C7"))
         }
     }
 }
