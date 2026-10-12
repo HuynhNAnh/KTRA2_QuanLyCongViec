@@ -1,6 +1,7 @@
 package com.ute.ktra2_quanlycongviec
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
@@ -14,6 +15,8 @@ class ChinhSuaCongViecActivity : AppCompatActivity() {
     private lateinit var edtTenCongViecSua: TextInputEditText
     private lateinit var edtMoTaCongViecSua: TextInputEditText
     private lateinit var btnLuu: Button
+
+    private var congViecHienTai: CongViec = CongViec()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,21 +33,28 @@ class ChinhSuaCongViecActivity : AppCompatActivity() {
         edtMoTaCongViecSua = findViewById(R.id.edtMoTaCongViecSua)
         btnLuu = findViewById(R.id.btnLuu)
 
-        // Nhan du lieu cu hien thi vao cac o nhap
-        val tenHienTai = intent.getStringExtra("EXTRA_TEN_CONG_VIEC") ?: ""
-        val moTaHienTai = intent.getStringExtra("EXTRA_MO_TA") ?: ""
+        // Nhan doi tuong CongViec cu
+        val receivedCongViec = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("EXTRA_CONG_VIEC", CongViec::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getSerializableExtra("EXTRA_CONG_VIEC") as? CongViec
+        }
 
-        edtTenCongViecSua.setText(tenHienTai)
-        edtMoTaCongViecSua.setText(moTaHienTai)
+        if (receivedCongViec != null) {
+            congViecHienTai = receivedCongViec
+        }
 
-        // Xu ly nut Luu va tra ket qua ve man hinh chi tiet
+        edtTenCongViecSua.setText(congViecHienTai.tenCongViec)
+        edtMoTaCongViecSua.setText(congViecHienTai.moTa)
+
+        // Xu ly nut Luu va tra doi tuong CongViec qua Intent ket qua
         btnLuu.setOnClickListener {
-            val tenMoi = edtTenCongViecSua.text.toString()
-            val moTaMoi = edtMoTaCongViecSua.text.toString()
+            congViecHienTai.tenCongViec = edtTenCongViecSua.text.toString()
+            congViecHienTai.moTa = edtMoTaCongViecSua.text.toString()
 
             val resultIntent = Intent().apply {
-                putExtra("EXTRA_TEN_CONG_VIEC", tenMoi)
-                putExtra("EXTRA_MO_TA", moTaMoi)
+                putExtra("EXTRA_CONG_VIEC", congViecHienTai)
             }
             setResult(RESULT_OK, resultIntent)
             finish()

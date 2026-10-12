@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
 
-        // Xu ly nut Tao cong viec va chuyen sang man hinh chi tiet
+        // Xu ly nut Tao cong viec va chuyen sang man hinh chi tiet voi doi tuong CongViec
         btnTaoCongViec.setOnClickListener {
             chuyenSangChiTiet()
         }
@@ -55,9 +55,10 @@ class MainActivity : AppCompatActivity() {
         val tenCongViec = edtTenCongViec.text.toString()
         val moTa = edtMoTaCongViec.text.toString()
 
+        val congViec = CongViec(tenCongViec = tenCongViec, moTa = moTa)
+
         val intent = Intent(this, ChiTietCongViecActivity::class.java).apply {
-            putExtra("EXTRA_TEN_CONG_VIEC", tenCongViec)
-            putExtra("EXTRA_MO_TA", moTa)
+            putExtra("EXTRA_CONG_VIEC", congViec)
         }
         startActivity(intent)
     }

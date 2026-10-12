@@ -26,7 +26,7 @@
         android:id="@+id/cardChiTiet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="3dp"
         app:strokeWidth="1dp"
@@ -62,8 +62,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
                 android:background="#E2E8F0" />
 
             <TextView
@@ -84,6 +84,32 @@
                 android:textColor="#334155"
                 tools:text="Nội dung mô tả chi tiết công việc..." />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                android:background="#E2E8F0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thông tin tóm tắt (layThongTinCongViec):"
+                android:textSize="13sp"
+                android:textColor="#64748B"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtThongTinTomTat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="#F1F5F9"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:textColor="#334155"
+                tools:text="Tên: Học bài Android..." />
+
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -91,7 +117,7 @@
         android:id="@+id/btnChinhSua"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:text="Chỉnh sửa công việc"
         android:textSize="16sp"
         android:textStyle="bold"

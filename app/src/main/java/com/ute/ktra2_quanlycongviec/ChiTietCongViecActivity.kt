@@ -1,6 +1,7 @@
 package com.ute.ktra2_quanlycongviec
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -15,12 +16,12 @@ class ChiTietCongViecActivity : AppCompatActivity() {
 
     private lateinit var txtTenCongViecChiTiet: TextView
     private lateinit var txtMoTaCongViecChiTiet: TextView
+    private lateinit var txtThongTinTomTat: TextView
     private lateinit var btnChinhSua: Button
 
     private lateinit var chinhSuaLauncher: ActivityResultLauncher<Intent>
 
-    private var tenHienTai: String = ""
-    private var moTaHienTai: String = ""
+    private var congViecHienTai: CongViec = CongViec()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,24 +36,35 @@ class ChiTietCongViecActivity : AppCompatActivity() {
 
         txtTenCongViecChiTiet = findViewById(R.id.txtTenCongViecChiTiet)
         txtMoTaCongViecChiTiet = findViewById(R.id.txtMoTaCongViecChiTiet)
+        txtThongTinTomTat = findViewById(R.id.txtThongTinTomTat)
         btnChinhSua = findViewById(R.id.btnChinhSua)
 
-        // Nhan du lieu tu Intent va hien thi
-        tenHienTai = intent.getStringExtra("EXTRA_TEN_CONG_VIEC") ?: ""
-        moTaHienTai = intent.getStringExtra("EXTRA_MO_TA") ?: ""
+        // Nhan doi tuong CongViec tu Intent
+        val receivedCongViec = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("EXTRA_CONG_VIEC", CongViec::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getSerializableExtra("EXTRA_CONG_VIEC") as? CongViec
+        }
 
-        txtTenCongViecChiTiet.text = tenHienTai
-        txtMoTaCongViecChiTiet.text = moTaHienTai
+        if (receivedCongViec != null) {
+            congViecHienTai = receivedCongViec
+        }
+        capNhatThongTin()
 
-        // Dang ky Activity Result API va nhan ket qua tra ve
+        // Dang ky Activity Result API nhan doi tuong CongViec da sua
         chinhSuaLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                val data = result.data
-                val tenMoi = data?.getStringExtra("EXTRA_TEN_CONG_VIEC")
-                val moTaMoi = data?.getStringExtra("EXTRA_MO_TA")
+                val cvMoi = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    result.data?.getSerializableExtra("EXTRA_CONG_VIEC", CongViec::class.java)
+                } else {
+                    @Suppress("DEPRECATION")
+                    result.data?.getSerializableExtra("EXTRA_CONG_VIEC") as? CongViec
+                }
 
-                if (tenMoi != null && moTaMoi != null) {
-                    capNhatThongTin(tenMoi, moTaMoi)
+                if (cvMoi != null) {
+                    congViecHienTai = cvMoi
+                    capNhatThongTin()
                 }
             }
         }
@@ -64,16 +76,15 @@ class ChiTietCongViecActivity : AppCompatActivity() {
 
     private fun chuyenSangChinhSua() {
         val intent = Intent(this, ChinhSuaCongViecActivity::class.java).apply {
-            putExtra("EXTRA_TEN_CONG_VIEC", tenHienTai)
-            putExtra("EXTRA_MO_TA", moTaHienTai)
+            putExtra("EXTRA_CONG_VIEC", congViecHienTai)
         }
         chinhSuaLauncher.launch(intent)
     }
 
-    private fun capNhatThongTin(tenMoi: String, moTaMoi: String) {
-        tenHienTai = tenMoi
-        moTaHienTai = moTaMoi
-        txtTenCongViecChiTiet.text = tenHienTai
-        txtMoTaCongViecChiTiet.text = moTaHienTai
+    private fun capNhatThongTin() {
+        txtTenCongViecChiTiet.text = congViecHienTai.tenCongViec
+        txtMoTaCongViecChiTiet.text = congViecHienTai.moTa
+        // Su dung ham layThongTinCongViec de hien thi thong tin tom tat
+        txtThongTinTomTat.text = congViecHienTai.layThongTinCongViec()
     }
 }
