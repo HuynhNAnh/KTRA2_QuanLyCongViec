@@ -5,15 +5,45 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardThongTinSinhVien"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="#E2E8F0"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="THÔNG TIN SINH VIÊN"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#64748B" />
+
+            <TextView
+                android:id="@+id/txtThongTinSinhVien"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Huỳnh Ngọc Anh - MSSV: 2415053122202 - Lớp: 24T2"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#1E293B" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
