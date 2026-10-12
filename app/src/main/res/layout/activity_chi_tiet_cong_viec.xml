@@ -41,13 +41,35 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tên công việc:"
-                android:textSize="14sp"
-                android:textColor="#64748B"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tên công việc:"
+                    android:textSize="14sp"
+                    android:textColor="#64748B"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtTrangThaiChiTiet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="12dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="4dp"
+                    android:text="Chưa hoàn thành"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#B45309"
+                    android:background="#FEF3C7" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/txtTenCongViecChiTiet"
@@ -109,6 +131,22 @@
                 android:textSize="14sp"
                 android:textColor="#334155"
                 tools:text="Tên: Học bài Android..." />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                android:background="#E2E8F0" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cbHoanThanh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đánh dấu hoàn thành"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#1E293B" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

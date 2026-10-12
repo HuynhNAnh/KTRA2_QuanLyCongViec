@@ -1,6 +1,7 @@
 package com.ute.ktra2_quanlycongviec
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
@@ -11,12 +12,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.checkbox.MaterialCheckBox
 
 class ChiTietCongViecActivity : AppCompatActivity() {
 
     private lateinit var txtTenCongViecChiTiet: TextView
     private lateinit var txtMoTaCongViecChiTiet: TextView
+    private lateinit var txtTrangThaiChiTiet: TextView
     private lateinit var txtThongTinTomTat: TextView
+    private lateinit var cbHoanThanh: MaterialCheckBox
     private lateinit var btnChinhSua: Button
 
     private lateinit var chinhSuaLauncher: ActivityResultLauncher<Intent>
@@ -36,7 +40,9 @@ class ChiTietCongViecActivity : AppCompatActivity() {
 
         txtTenCongViecChiTiet = findViewById(R.id.txtTenCongViecChiTiet)
         txtMoTaCongViecChiTiet = findViewById(R.id.txtMoTaCongViecChiTiet)
+        txtTrangThaiChiTiet = findViewById(R.id.txtTrangThaiChiTiet)
         txtThongTinTomTat = findViewById(R.id.txtThongTinTomTat)
+        cbHoanThanh = findViewById(R.id.cbHoanThanh)
         btnChinhSua = findViewById(R.id.btnChinhSua)
 
         // Nhan doi tuong CongViec tu Intent
@@ -69,6 +75,13 @@ class ChiTietCongViecActivity : AppCompatActivity() {
             }
         }
 
+        // Xu ly su kien danh dau hoan thanh
+        cbHoanThanh.setOnCheckedChangeListener { _, isChecked ->
+            congViecHienTai.trangThai = if (isChecked) "Đã hoàn thành" else "Chưa hoàn thành"
+            capNhatTrangThaiUI()
+            txtThongTinTomTat.text = congViecHienTai.layThongTinCongViec()
+        }
+
         btnChinhSua.setOnClickListener {
             chuyenSangChinhSua()
         }
@@ -84,7 +97,20 @@ class ChiTietCongViecActivity : AppCompatActivity() {
     private fun capNhatThongTin() {
         txtTenCongViecChiTiet.text = congViecHienTai.tenCongViec
         txtMoTaCongViecChiTiet.text = congViecHienTai.moTa
-        // Su dung ham layThongTinCongViec de hien thi thong tin tom tat
         txtThongTinTomTat.text = congViecHienTai.layThongTinCongViec()
+
+        cbHoanThanh.isChecked = (congViecHienTai.trangThai == "Đã hoàn thành")
+        capNhatTrangThaiUI()
+    }
+
+    private fun capNhatTrangThaiUI() {
+        txtTrangThaiChiTiet.text = congViecHienTai.trangThai
+        if (congViecHienTai.trangThai == "Đã hoàn thành") {
+            txtTrangThaiChiTiet.setTextColor(Color.parseColor("#15803D"))
+            txtTrangThaiChiTiet.setBackgroundColor(Color.parseColor("#DCFCE7"))
+        } else {
+            txtTrangThaiChiTiet.setTextColor(Color.parseColor("#B45309"))
+            txtTrangThaiChiTiet.setBackgroundColor(Color.parseColor("#FEF3C7"))
+        }
     }
 }
