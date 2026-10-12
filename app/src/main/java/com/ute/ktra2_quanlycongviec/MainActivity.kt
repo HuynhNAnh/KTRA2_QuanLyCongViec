@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnTaoCongViec: Button
     private lateinit var btnXemDanhSach: Button
 
+    private var demCongViec: Int = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         btnXemDanhSach.setOnClickListener {
             Toast.makeText(
                 this,
-                "Danh sách công việc mẫu:\n1. Ôn tập Android\n2. Hoàn thiện bài KTRA2",
+                "Danh sách công việc mẫu:\n1. CV01 - Ôn tập Android\n2. CV02 - Hoàn thiện bài KTRA2",
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -67,8 +69,9 @@ class MainActivity : AppCompatActivity() {
 
         val tenCongViec = edtTenCongViec.text.toString().trim()
         val moTa = edtMoTaCongViec.text.toString().trim()
+        val maCongViec = String.format("CV%02d", demCongViec++)
 
-        val congViec = CongViec(tenCongViec = tenCongViec, moTa = moTa)
+        val congViec = CongViec(maCongViec = maCongViec, tenCongViec = tenCongViec, moTa = moTa)
 
         val intent = Intent(this, ChiTietCongViecActivity::class.java).apply {
             putExtra("EXTRA_CONG_VIEC", congViec)
