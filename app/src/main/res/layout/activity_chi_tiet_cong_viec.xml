@@ -48,13 +48,22 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Tên công việc:"
+                    android:text="Mã CV: "
                     android:textSize="14sp"
                     android:textColor="#64748B"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtMaCongViecChiTiet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#2563EB"
+                    tools:text="CV01" />
 
                 <TextView
                     android:id="@+id/txtTrangThaiChiTiet"
@@ -66,6 +75,21 @@
                     android:textColor="#B45309"
                     android:background="@drawable/bg_trang_thai" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="#E2E8F0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên công việc:"
+                android:textSize="14sp"
+                android:textColor="#64748B"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtTenCongViecChiTiet"
@@ -126,7 +150,7 @@
                 android:padding="10dp"
                 android:textSize="14sp"
                 android:textColor="#334155"
-                tools:text="Tên: Học bài Android..." />
+                tools:text="Mã: CV01\nTên: Học bài Android..." />
 
             <View
                 android:layout_width="match_parent"
@@ -148,15 +172,30 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnChinhSua"
+        android:id="@+id/btnHoanThanh"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Hoàn thành công việc"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="8dp"
+        app:backgroundTint="#16A34A"
+        app:layout_constraintTop_toBottomOf="@id/cardChiTiet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnChinhSua"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="10dp"
         android:text="Chỉnh sửa công việc"
         android:textSize="16sp"
         android:textStyle="bold"
         app:cornerRadius="8dp"
-        app:layout_constraintTop_toBottomOf="@id/cardChiTiet"
+        app:layout_constraintTop_toBottomOf="@id/btnHoanThanh"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
