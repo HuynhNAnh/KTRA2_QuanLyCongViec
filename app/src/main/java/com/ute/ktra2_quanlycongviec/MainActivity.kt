@@ -51,9 +51,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun kiemTraDuLieu(): Boolean {
+        val tenCongViec = edtTenCongViec.text?.toString()?.trim() ?: ""
+        if (tenCongViec.isEmpty()) {
+            edtTenCongViec.error = "Tên công việc không được để trống!"
+            edtTenCongViec.requestFocus()
+            Toast.makeText(this, "Vui lòng nhập tên công việc!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
+
     private fun chuyenSangChiTiet() {
-        val tenCongViec = edtTenCongViec.text.toString()
-        val moTa = edtMoTaCongViec.text.toString()
+        if (!kiemTraDuLieu()) return
+
+        val tenCongViec = edtTenCongViec.text.toString().trim()
+        val moTa = edtMoTaCongViec.text.toString().trim()
 
         val congViec = CongViec(tenCongViec = tenCongViec, moTa = moTa)
 
