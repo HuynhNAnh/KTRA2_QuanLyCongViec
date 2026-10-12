@@ -1,0 +1,2 @@
+# KTRA2_QuanLyCongViec
+KTRA2_QuanLyCongViec
