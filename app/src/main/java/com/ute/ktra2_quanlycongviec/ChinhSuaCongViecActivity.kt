@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -50,8 +51,10 @@ class ChinhSuaCongViecActivity : AppCompatActivity() {
 
         // Xu ly nut Luu va tra doi tuong CongViec qua Intent ket qua
         btnLuu.setOnClickListener {
-            congViecHienTai.tenCongViec = edtTenCongViecSua.text.toString()
-            congViecHienTai.moTa = edtMoTaCongViecSua.text.toString()
+            if (!kiemTraDuLieu()) return@setOnClickListener
+
+            congViecHienTai.tenCongViec = edtTenCongViecSua.text.toString().trim()
+            congViecHienTai.moTa = edtMoTaCongViecSua.text.toString().trim()
 
             val resultIntent = Intent().apply {
                 putExtra("EXTRA_CONG_VIEC", congViecHienTai)
@@ -59,5 +62,16 @@ class ChinhSuaCongViecActivity : AppCompatActivity() {
             setResult(RESULT_OK, resultIntent)
             finish()
         }
+    }
+
+    private fun kiemTraDuLieu(): Boolean {
+        val tenMoi = edtTenCongViecSua.text?.toString()?.trim() ?: ""
+        if (tenMoi.isEmpty()) {
+            edtTenCongViecSua.error = "Tên công việc không được để trống!"
+            edtTenCongViecSua.requestFocus()
+            Toast.makeText(this, "Vui lòng nhập tên công việc!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 }
