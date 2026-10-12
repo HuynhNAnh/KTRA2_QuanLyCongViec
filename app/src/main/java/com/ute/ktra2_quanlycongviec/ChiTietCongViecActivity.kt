@@ -1,8 +1,12 @@
 package com.ute.ktra2_quanlycongviec
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -11,6 +15,12 @@ class ChiTietCongViecActivity : AppCompatActivity() {
 
     private lateinit var txtTenCongViecChiTiet: TextView
     private lateinit var txtMoTaCongViecChiTiet: TextView
+    private lateinit var btnChinhSua: Button
+
+    private lateinit var chinhSuaLauncher: ActivityResultLauncher<Intent>
+
+    private var tenHienTai: String = ""
+    private var moTaHienTai: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,12 +35,30 @@ class ChiTietCongViecActivity : AppCompatActivity() {
 
         txtTenCongViecChiTiet = findViewById(R.id.txtTenCongViecChiTiet)
         txtMoTaCongViecChiTiet = findViewById(R.id.txtMoTaCongViecChiTiet)
+        btnChinhSua = findViewById(R.id.btnChinhSua)
 
         // Nhan du lieu tu Intent va hien thi
-        val tenCongViec = intent.getStringExtra("EXTRA_TEN_CONG_VIEC") ?: ""
-        val moTa = intent.getStringExtra("EXTRA_MO_TA") ?: ""
+        tenHienTai = intent.getStringExtra("EXTRA_TEN_CONG_VIEC") ?: ""
+        moTaHienTai = intent.getStringExtra("EXTRA_MO_TA") ?: ""
 
-        txtTenCongViecChiTiet.text = tenCongViec
-        txtMoTaCongViecChiTiet.text = moTa
+        txtTenCongViecChiTiet.text = tenHienTai
+        txtMoTaCongViecChiTiet.text = moTaHienTai
+
+        // Dang ky Activity Result API
+        chinhSuaLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            // Callback se xu ly o commit tiep theo
+        }
+
+        btnChinhSua.setOnClickListener {
+            chuyenSangChinhSua()
+        }
+    }
+
+    private fun chuyenSangChinhSua() {
+        val intent = Intent(this, ChinhSuaCongViecActivity::class.java).apply {
+            putExtra("EXTRA_TEN_CONG_VIEC", tenHienTai)
+            putExtra("EXTRA_MO_TA", moTaHienTai)
+        }
+        chinhSuaLauncher.launch(intent)
     }
 }
